@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDDCD1QHDQfQeiMkQfMO7fSMrlFQQr1Vsw",
+            authDomain: "awp-mini-project.firebaseapp.com",
+            projectId: "awp-mini-project",
+            storageBucket: "awp-mini-project.appspot.com",
+            messagingSenderId: "179396567119",
+            appId: "1:179396567119:web:e1bc2c3c0e9700a8cf0a3a",
+            measurementId: "G-MQWEQ24Y0Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        function add() {
+            firebase.firestore().collection('users').doc('9DGmfbdLjBziuTq7a2cp').update({
+                Task: {
+                    msg: "hello",
+                    status: "done",
+                }
+            })
+        }
+
+        function retrive() {
+            firebase.firestore().collection('users').doc('9DGmfbdLjBziuTq7a2cp').get().then((doc) => {
+                console.log(doc.data().Task);
+            })
+        }
+    </script>
+    <div>
+        Task:<input type="text">
+        <a href="#" onclick="add()">click here</a><br>
+        <a href="#" onclick="retrive()">see</a>
+
+    </div>
+</body>
+
+</html>

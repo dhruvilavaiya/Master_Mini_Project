@@ -1,0 +1,131 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Signup</title>
+  <link rel="stylesheet" href="boot.css">
+  <style>
+    #loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.75) url(loading.gif) no-repeat center center;
+      z-index: 10000;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div id="loader"></div>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDDCD1QHDQfQeiMkQfMO7fSMrlFQQr1Vsw",
+      authDomain: "awp-mini-project.firebaseapp.com",
+      projectId: "awp-mini-project",
+      storageBucket: "awp-mini-project.appspot.com",
+      messagingSenderId: "179396567119",
+      appId: "1:179396567119:web:e1bc2c3c0e9700a8cf0a3a",
+      measurementId: "G-MQWEQ24Y0Q"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <div class="login-wrap">
+    <div class="login-html">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+      <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+      <div class="login-form">
+        <div class="sign-in-htm">
+          <div class="group">
+            <label for="email1" class="label">Username</label>
+            <input type="email" class="input" id="email1">
+          </div>
+          <div class="group">
+            <label for="pass1" class="label">Password</label>
+            <input type="password" class="input" data-type="password" id="pass1">
+          </div>
+          <div class="group">
+            <input id="check" type="checkbox" class="check" checked>
+            <label for="check"><span class="icon"></span> Keep me Signed in</label>
+          </div>
+          <div class="group">
+            <input type="button" class="button" value="Sign In" onclick="login()">
+          </div>
+          <div class="hr"></div>
+        </div>
+        <div class="sign-up-htm">
+          <div class="group">
+            <label for="name" class="label">Username</label>
+            <input id="name" type="text" class="input">
+          </div>
+
+          <div class="group">
+            <label for="email" class="label">Email Address</label>
+            <input id="email" type="text" class="input">
+          </div>
+          <div class="group">
+            <label for="pass" class="label">Password</label>
+            <input id="pass" type="password" class="input" data-type="password">
+          </div>
+          <div class="group">
+            <label for="phone" class="label">Phone Number</label>
+            <input id="phone" type="tel" class="input">
+          </div>
+          <div class="group">
+            <input type="button" class="button" value="Sign Up" onclick="fun()">
+          </div>
+          <div class="hr"></div>
+          <div class="foot-lnk">
+            <label for="tab-1">Already Member?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var spinner = $('#loader');
+    function login() {
+      spinner.show();
+      var a = document.getElementById('email1');
+      var email = a.value;
+      var b = document.getElementById('pass1');
+      var pass = b.value;
+      // console.log(email);
+      // console.log(pass);
+      firebase.auth().signInWithEmailAndPassword(email, pass)
+        .then((userCredential) => {
+          var user = userCredential.user
+          if (user != null) {
+            window.location.href = "to_do.html"
+            localStorage.setItem('uid', user.uid)
+            // console.log(user.uid);
+          }
+        })
+        .catch(function (error) {
+          console.log(error.code);
+          console.log(error.message);
+          spinner.hide(100, function () {
+            alert(error.message);
+          });
+        });
+    }
+  </script>
+
+</body>
+<script src="signup.js"></script>
+
+</html>

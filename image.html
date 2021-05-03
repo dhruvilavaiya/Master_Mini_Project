@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image</title>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-storage.js"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDDCD1QHDQfQeiMkQfMO7fSMrlFQQr1Vsw",
+            authDomain: "awp-mini-project.firebaseapp.com",
+            projectId: "awp-mini-project",
+            storageBucket: "awp-mini-project.appspot.com",
+            messagingSenderId: "179396567119",
+            appId: "1:179396567119:web:e1bc2c3c0e9700a8cf0a3a",
+            measurementId: "G-MQWEQ24Y0Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        function showimage() {
+
+            var storageRef = firebase.storage().ref();
+            storageRef.child('gs://javascript-2525.appspot.com/images/avatar.png').getDownloadURL()
+                .then((url) => {
+
+                    var img = document.getElementById('myimg');
+                    img.setAttribute('src', url);
+                })
+                .catch((error) => {
+                    // Handle any errors
+                });
+
+
+        }
+    </script>
+    <input type="button" value="view Image" id="viewbtn" onclick="showimage();">
+    <img id="myimg" height="125px" width="200px" />
+</body>
+
+</html>

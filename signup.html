@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        a {
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            display: block;
+            height: 30px;
+            width: 70px;
+            text-align: center;
+            border-radius: 5px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDDCD1QHDQfQeiMkQfMO7fSMrlFQQr1Vsw",
+            authDomain: "awp-mini-project.firebaseapp.com",
+            projectId: "awp-mini-project",
+            storageBucket: "awp-mini-project.appspot.com",
+            messagingSenderId: "179396567119",
+            appId: "1:179396567119:web:e1bc2c3c0e9700a8cf0a3a",
+            measurementId: "G-MQWEQ24Y0Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // alert("logged in...")
+                localStorage.setItem('uid', user.uid)
+                console.log(user);
+
+                // window.location.href="home.html"
+                function Redirect() {
+                    window.location.href = "to_do.html"
+                }
+                setTimeout(Redirect, 3000)
+
+
+            } else {
+                // console.log(user)
+            }
+        });
+    </script>
+    <script>
+
+    </script>
+    <form>
+        Name:<input type="text" id="name"><br><br>
+        Email:<input type="email" id="email"><br><br>
+        password:<input type="text" id="pass"><br><br>
+        phone:<input type="tel" id="phone"><br><br>
+        <a href="#" onclick="fun()" id="btn">signup</a><br><br>
+
+    </form>
+</body>
+<script src="signup.js"></script>
+
+</html>

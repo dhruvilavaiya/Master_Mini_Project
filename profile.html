@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/ea99c0e3b8.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="menu.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #2c3e50;
+        }
+
+        .flip-box {
+            background-color: transparent;
+            width: 700px;
+            height: 400px;
+            transform: translate(45%, 30%);
+            /* border: 1px solid #f1f1f1; */
+            perspective: 1000px;
+        }
+
+        img {
+            height: 300px;
+            width: 300px;
+            transform: translateY(20%);
+        }
+
+        .flip-box-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgb(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
+        }
+
+        /* 
+.flip-box:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}  */
+
+        .flip-box-front,
+        .flip-box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-box-front {
+            background-color: white;
+            color: black;
+        }
+
+        .flip-box-back {
+            /* background-color: #2c3e50; */
+            background-color: white;
+            color: black;
+            transform: rotateY(180deg);
+        }
+
+        #custom1 {
+            background-color: #e74c3c;
+            outline: none;
+            border: none;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #custom2 {
+            background-color: #9b59b6;
+            outline: none;
+            border: none;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        #custom3 {
+            background-color: #2c3e50;
+            outline: none;
+            border: none;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .menu ul li:nth-child(4) {
+            margin: 5px;
+            /* margin-top: 5px; */
+            padding-left: 10px;
+            width: 30px;
+        }
+
+        .menu ul li:nth-child(5) {
+            /* background-color: pink; */
+            margin: 5px;
+            padding-left: 10px;
+            width: 30px;
+        }
+
+        .menu ul li:nth-child(6) {
+            /* background-color: pink; */
+            margin: 5px;
+            padding-left: 10px;
+            width: 30px;
+        }
+
+
+        @media screen and (max-width:750px) {
+            body {
+                background-color: #2c3e50;
+                /* position: fixed; */
+            }
+
+            .menu {
+                width: 200%;
+            }
+
+            .flip-box {
+                background-color: transparent;
+                width: 320px;
+                height: 450px;
+                transform: translate(4%, 10%);
+            }
+
+            img {
+                transform: translateY(25%);
+                height: 300px;
+                width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDDCD1QHDQfQeiMkQfMO7fSMrlFQQr1Vsw",
+            authDomain: "awp-mini-project.firebaseapp.com",
+            projectId: "awp-mini-project",
+            storageBucket: "awp-mini-project.appspot.com",
+            messagingSenderId: "179396567119",
+            appId: "1:179396567119:web:e1bc2c3c0e9700a8cf0a3a",
+            measurementId: "G-MQWEQ24Y0Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+    <div class="menu">
+        <ul>
+            <li> <a href="to_do.html"><i class="fa fa-home"></i>Home</a></li>
+            <li> <a href="#"><i class="fa fa-user"></i>Profile</a></li>
+            <!-- <li> <a href="#"><i class="fa fa-phone"></i>Logout</a></li> -->
+            <li> <a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a></li>
+            <li><button type="button" id="custom1" onclick="theme(this.id)"></button></li>
+            <li><button type="button" id="custom2" onclick="theme(this.id)"></button></li>
+            <li><button type="button" id="custom3" onclick="theme(this.id)"></button></li>
+        </ul>
+    </div>
+    <div class="flip-box" onmousemove="flip()" onmouseout="flip2()" ontouchstart="flip()" ontouchend="flip2()">
+        <div class="flip-box-inner">
+            <div class="flip-box-front">
+                <!-- <h2>Front Side</h2> -->
+                <img src="avatar.png">
+                <!-- <a href="#" onmousemove="flip()">Flip</a> -->
+            </div>
+            <div class="flip-box-back"><br><br>
+                <p id="name" style="font-family: 'Courier New'; margin-top: 60px;"></p>
+                <p id="email" style="font-family: 'Courier New';"></p>
+                <p id="phone" style="font-family: 'Courier New';"></p>
+
+                <!-- <h2>Back Side</h2> -->
+                <!-- <a href="#" onmousemove="flip2()">Flip</a> -->
+            </div>
+        </div>
+    </div>
+    <script>
+        firebase.firestore().collection("signup_user").doc(localStorage.getItem('uid')).get().then((doc) => {
+            console.log(doc.data());
+            var ele1 = document.getElementById("name")
+            ele1.innerHTML = `<br> Name= ${doc.data().Name}`
+
+            var ele2 = document.getElementById("email")
+            ele2.innerHTML = `<br> Email= ${doc.data().Email}`
+
+            var ele3 = document.getElementById("phone")
+            ele3.innerHTML = `<br>Phone= ${doc.data().Phone}`
+        })
+    </script>
+    <script>
+        function flip() {
+            var ele = document.getElementsByClassName('flip-box-inner')[0]
+            console.log(ele);
+            ele.style.transform = "rotateY(180deg)"
+        }
+        function flip2() {
+            var ele = document.getElementsByClassName('flip-box-inner')[0]
+            // console.log(ele);   
+            ele.style.transform = "rotateY(0deg)"
+        }
+    </script>
+    <script>
+        function theme(a1) {
+
+            if (a1 == "custom1") {
+                sessionStorage.setItem("color", "#e74c3c")
+                document.body.style.background = `${sessionStorage.getItem('color')}`
+            }
+            else if (a1 == "custom3") {
+                sessionStorage.setItem("color", "#2c3e50")
+                document.body.style.background = `${sessionStorage.getItem('color')}`
+            }
+
+            else {
+                sessionStorage.setItem("color", "#9b59b6")
+                document.body.style.background = `${sessionStorage.getItem('color')}`
+            }
+
+        }
+
+        window.onload = theme1()
+        function theme1() {
+            document.body.style.background = `${sessionStorage.getItem('color')}`
+        }
+    </script>
+
+</body>
+<script src="signup.js"></script>
+
+</html>
