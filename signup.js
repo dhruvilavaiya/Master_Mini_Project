@@ -63,7 +63,7 @@ function logout() {
     .signOut()
     console.log("logged out...");   
     localStorage.removeItem('uid')
-    window.location.href="login.html"
+    window.location.href="index.html"
 
 }
 
